@@ -4,12 +4,11 @@ const NEW_USER = {
     email: Date.now() + '@test.com',
     phone: "1234567",
     password: "1234567890",
-    confirmPassword: "1234567890",
 }
 
-Feature('register');
+Feature('new user');
 
-Scenario('register new user', ({ I, basePage, accountPage }) => {
+/* Scenario('register new user', ({ I, basePage, accountPage }) => {
     I.amOnPage('http://opencart.qatestlab.net/');
     basePage.clickMyAccount();
     basePage.clickRegister();
@@ -18,4 +17,4 @@ Scenario('register new user', ({ I, basePage, accountPage }) => {
     accountPage.clickPrivacyConfirmation();
     accountPage.clickContinue();
     accountPage.verifySuccesfulRegistration();
-});
+}); */

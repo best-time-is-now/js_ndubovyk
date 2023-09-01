@@ -16,7 +16,7 @@ exports.config = {
   helpers: {
     Playwright: {
       browser: 'chromium',
-      url: 'http://localhost',
+      url: 'http://opencart.qatestlab.net/',
       show: true,
       waitForNavigation: 'networkidle',
       waitForTimeOut: 5000,
@@ -27,6 +27,7 @@ exports.config = {
     I: './steps_file.js',
     basePage: './pages/base.js',
     accountPage: "./pages/account.js",
+    productPage: "./pages/product.js",
   },
   name: 'js_ndubovyk'
 }
