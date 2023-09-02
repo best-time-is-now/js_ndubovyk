@@ -1,5 +1,5 @@
 const USER = {
-    email: "117@test.com",
+    email: "114@test.com",
     password: "12345",
     firstName: "Angelina",
     lastName: "New",
@@ -12,12 +12,12 @@ const USER = {
 
 Feature('buy product');
 
-Scenario('buy product', ({ I, productPage }) => {
+Scenario('buy product', ({ I, productPage, cartPage }) => {
     I.login(USER);
     I.amOnPage('/index.php?route=product/product&product_id=44');
     productPage.selectColor();
     productPage.selectSize();
     I.proceedToCheckout();
     I.clickCheckoutButton();
-    I.fillCheckoutForm(USER);
+    cartPage.fillCheckoutForm(USER);
 }).tag("buy");
