@@ -54,16 +54,16 @@ module.exports = {
     I.click(this.continueButton);
     I.click(this.continueStep2Button);
 
-    I.waitForVisible('//input[@id="button-shipping-address"]', 7);
+    I.waitForVisible(this.continueStep3Button, 5);
     I.click(this.continueStep3Button);
 
-    I.waitForVisible('//input[@id="button-shipping-method"]', 5);
+    I.waitForVisible(this.continueStep4Button, 5);
     I.click(this.continueStep4Button);
 
-    // I.waitForVisible('//input[@id="agree1"]', 5);
+    I.waitForVisible(this.step5ConditionsAccepting, 5);
     I.click(this.step5ConditionsAccepting);
 
-    // I.waitForVisible('//input[@id="button-payment-method"]', 5);
+    I.waitForVisible(this.continueStep5Button, 5);
     I.click(this.continueStep5Button);
   },
 
