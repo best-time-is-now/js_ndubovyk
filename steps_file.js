@@ -6,17 +6,30 @@ myOrdersText = { xpath: '//h2[text()="My Orders"]' };
 addToCartButton = { xpath: '//button[@type="button"][@id="button-cart"]' };
 cartIcon = { xpath: '//i[@class="linearicons-cart"]' };
 checkoutButton = { xpath: '//a[@class="btn-primary btn-r"]' };
+clearCartButton = { xpath: '//*[@class="linearicons-trash"]' };
 
 module.exports = function () {
   return actor({
 
     login(user) {
       this.amOnPage('http://opencart.qatestlab.net/');
+
       this.click(signInButton);
       this.fillField(emailField, user.email);
       this.fillField(passwordField, user.password);
       this.click(loginButton);
       this.seeTextEquals("My Orders", myOrdersText);
+    },
+
+    async emptyCart() {
+      this.click(cartIcon);
+      const numOfElements = await this.grabNumberOfVisibleElements('//li[@class="product"]');
+
+      if (numOfElements > 0) {
+        for (let i = 1; i < numOfElements * 2; i += 2) {
+          this.click('(//div[@class="buttons"]/button[@class="link"])[' + i + ']');
+        }
+      }
     },
 
     proceedToCheckout() {
@@ -25,7 +38,7 @@ module.exports = function () {
     },
 
     clickCheckoutButton() {
-        this.click(checkoutButton);
+      this.click(checkoutButton);
     },
   });
 }

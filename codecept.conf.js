@@ -20,8 +20,16 @@ exports.config = {
       show: true,
       waitForNavigation: 'networkidle',
       waitForTimeOut: 5000,
-      windowSize: '1900x900',
-    }
+      windowSize: '1200x900',
+    },
+
+    ChaiWrapper: {
+      require: "codeceptjs-chai"
+    },
+    
+    PriceConverter: {
+      require: './helpers/priceconverter_helper.js',
+    },
   },
   include: {
     I: './steps_file.js',
