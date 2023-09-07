@@ -27,7 +27,7 @@ module.exports = function () {
 
       if (numOfElements > 0) {
         for (let i = 1; i < numOfElements * 2; i++) {
-            this.click('(//i[@class="linearicons-trash"][last()])');
+          this.click('(//i[@class="linearicons-trash"])[last()]');
         }
       }
     },
