@@ -18,11 +18,11 @@ Scenario('buy product', async ({ I, productPage, cartPage }) => {
     await I.emptyCart();
     productPage.selectColor();
     productPage.selectSize();
+    const productPrice = await productPage.getProductPrice();
+    console.log("Price before taxes is " + productPrice);
     I.proceedToCheckout();
     I.clickCheckoutButton();
     cartPage.fillCheckoutForm(USER);
-    const productPrice = await productPage.getProductPrice();
-    console.log("Price before taxes is " + productPrice);
     const tax = await cartPage.getTax();
     const totalPrice = await cartPage.getTotalPrice();
     I.assertEqual(productPrice + tax, totalPrice, "Prices are not equal");

@@ -21,6 +21,7 @@ module.exports = {
   vat: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[4]/td[2]' },
   total: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[5]/td[2]' },
   confirmOrderButton: { xpath: '//*[@id="button-confirm"]' },
+  successfulPurchaseText: { xpath: '//*[@id="content"]/h1/text()' },
 
   fillCheckoutForm(customer) {
     if (!this.firstNameField.value) {
@@ -98,6 +99,6 @@ module.exports = {
   },
 
   verifySuccessfulPurchase() {
-    I.seeTextEquals('Your order has been placed!', '//*[@id="content"]/h1/text()');
+    I.seeTextEquals('Your order has been placed!', this.successfulPurchaseText);
   }
 }
