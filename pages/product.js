@@ -19,13 +19,13 @@ module.exports = {
 
   async getProductPrice() {
     const draftProductPrice = await I.grabTextFrom(this.productPriceText);
-    const draftPrice = I.parsePrice(draftProductPrice);
+    const draftPrice = await I.parsePrice(draftProductPrice);
 
     const draftColorPrice = await I.grabTextFrom(this.colorOption);
-    const colorPrice = I.parsePrice(draftColorPrice);
+    const colorPrice = await I.parsePrice(draftColorPrice);
 
     const draftSizePrice = await I.grabTextFrom(this.sizeOption);
-    const sizePrice = I.parsePrice(draftSizePrice);
-    return +draftPrice + colorPrice + sizePrice;
+    const sizePrice = await I.parsePrice(draftSizePrice);
+    return draftPrice + colorPrice + sizePrice;
   },
 }

@@ -1,7 +1,7 @@
 const Helper = require('@codeceptjs/helper');
 
 class PriceConverter extends Helper {
-  parsePrice(fieldText) {
+  async parsePrice(fieldText) {
     const numberRegex = /[0-9.]+/g;
     return parseFloat(numberRegex.exec(fieldText));
   }

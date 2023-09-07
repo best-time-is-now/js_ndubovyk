@@ -18,29 +18,23 @@ module.exports = {
   continueStep5Button: { xpath: '(//input[@id="button-payment-method"])[1]' },
   flatShippingRate: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[2]/td[2]' },
   ecoTax: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[3]/td[2]' },
-  vat: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[4]/td[2]' },
+  vat: { xpath: '//div[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[4]/td[2]' },
   total: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[5]/td[2]' },
   confirmOrderButton: { xpath: '//*[@id="button-confirm"]' },
   successfulPurchaseText: { xpath: '//*[@id="content"]/h1/text()' },
 
   fillCheckoutForm(customer) {
-    if (!this.firstNameField.value) {
+    if (
+      I.grabNumberOfVisibleElements(this.firstNameField) > 0
+      && I.grabNumberOfVisibleElements(this.lastNameField) > 0
+      && I.grabNumberOfVisibleElements(this.addressField) > 0
+      && I.grabNumberOfVisibleElements(this.cityField) > 0
+      && I.grabNumberOfVisibleElements(this.postcodeField) > 0
+    ) {
       I.fillField(this.firstNameField, customer.firstName);
-    }
-
-    if (!this.lastNameField.value) {
       I.fillField(this.lastNameField, customer.lastName);
-    }
-
-    if (!this.addressField.value) {
       I.fillField(this.addressField, customer.address);
-    }
-
-    if (!this.cityField.value) {
       I.fillField(this.cityField, customer.city);
-    }
-
-    if (!this.postcodeField.value) {
       I.fillField(this.postcodeField, customer.postcode);
     }
 
@@ -79,19 +73,19 @@ module.exports = {
 
   async getTax() {
     const shippingRate = await I.grabTextFrom(this.flatShippingRate);
-    const shippingRateParse = I.parsePrice(shippingRate);
+    const shippingRateParse = await I.parsePrice(shippingRate);
 
     const eco = await I.grabTextFrom(this.ecoTax);
-    const ecoParse = I.parsePrice(eco);
+    const ecoParse = await I.parsePrice(eco);
 
     const vatTax = await I.grabTextFrom(this.vat);
-    const vatParse = I.parsePrice(vatTax);
-    return +shippingRateParse + ecoParse + vatParse;
+    const vatParse = await I.parsePrice(vatTax);
+    return shippingRateParse + ecoParse + vatParse;
   },
 
   async getTotalPrice() {
     const finalPrice = await I.grabTextFrom(this.total);
-    return I.parsePrice(finalPrice);
+    return await I.parsePrice(finalPrice);
   },
 
   clickConfirmOrder() {
