@@ -6,7 +6,7 @@ myOrdersText = { xpath: '//h2[text()="My Orders"]' };
 addToCartButton = { xpath: '//button[@type="button"][@id="button-cart"]' };
 cartIcon = { xpath: '//i[@class="linearicons-cart"]' };
 checkoutButton = { xpath: '//a[@class="btn-primary btn-r"]' };
-clearCartButton = { xpath: '//*[@class="linearicons-trash"]' };
+
 
 module.exports = function () {
   return actor({
@@ -23,11 +23,11 @@ module.exports = function () {
 
     async emptyCart() {
       this.click(cartIcon);
-      const numOfElements = await this.grabNumberOfVisibleElements('//i[@class="linearicons-trash"]');
+      const numOfElements = await this.grabNumberOfVisibleElements('//li[@class="product"]');
 
       if (numOfElements > 0) {
-        for (let i = 1; i < numOfElements; i++) {
-          this.click('(//div[@class="buttons"]/button[@class="link"])[' + i + ']');
+        for (let i = 1; i < numOfElements * 2; i += 2) {
+            this.click('(//button[@class="link"])[' + i + ']');
         }
       }
     },
