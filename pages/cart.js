@@ -23,8 +23,9 @@ module.exports = {
   confirmOrderButton: { xpath: '//*[@id="button-confirm"]' },
   successfulPurchaseText: { xpath: '//*[@id="content"]/h1/text()' },
 
-  fillCheckoutForm(customer) {
-    if (await I.grabNumberOfVisibleElements(this.firstNameField) > 0) {
+  async fillCheckoutForm(customer) {
+    const number = await I.grabNumberOfVisibleElements(this.firstNameField);
+    if (number > 0) {
       I.fillField(this.firstNameField, customer.firstName);
       I.fillField(this.lastNameField, customer.lastName);
       I.fillField(this.addressField, customer.address);
