@@ -8,7 +8,7 @@ const NEW_USER = {
 
 Feature('new user');
 
-/* Scenario('register new user', ({ I, basePage, accountPage }) => {
+xScenario('register new user', ({ I, basePage, accountPage }) => {
     I.amOnPage('http://opencart.qatestlab.net/');
     basePage.clickMyAccount();
     basePage.clickRegister();
@@ -17,4 +17,4 @@ Feature('new user');
     accountPage.clickPrivacyConfirmation();
     accountPage.clickContinue();
     accountPage.verifySuccesfulRegistration();
-}); */
+});

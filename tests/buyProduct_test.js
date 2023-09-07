@@ -24,8 +24,9 @@ Scenario('buy product', async ({ I, productPage, cartPage }) => {
     const productPrice = await productPage.getProductPrice();
     console.log("Price before taxes is " + productPrice);
     const tax = await cartPage.getTax();
-    const totalPrice = await cartPage.getTotalprice();
+    const totalPrice = await cartPage.getTotalPrice();
     I.assertEqual(productPrice + tax, totalPrice, "Prices are not equal");
+    cartPage.clickConfirmOrder();
     cartPage.verifySuccessfulPurchase();
 
 }).tag("buy");

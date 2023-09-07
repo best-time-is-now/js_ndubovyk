@@ -23,10 +23,10 @@ module.exports = function () {
 
     async emptyCart() {
       this.click(cartIcon);
-      const numOfElements = await this.grabNumberOfVisibleElements('//li[@class="product"]');
+      const numOfElements = await this.grabNumberOfVisibleElements('//i[@class="linearicons-trash"]');
 
       if (numOfElements > 0) {
-        for (let i = 1; i < numOfElements * 2; i += 2) {
+        for (let i = 1; i < numOfElements; i++) {
           this.click('(//div[@class="buttons"]/button[@class="link"])[' + i + ']');
         }
       }
