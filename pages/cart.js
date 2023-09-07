@@ -24,13 +24,7 @@ module.exports = {
   successfulPurchaseText: { xpath: '//*[@id="content"]/h1/text()' },
 
   fillCheckoutForm(customer) {
-    if (
-      I.grabNumberOfVisibleElements(this.firstNameField) > 0
-      && I.grabNumberOfVisibleElements(this.lastNameField) > 0
-      && I.grabNumberOfVisibleElements(this.addressField) > 0
-      && I.grabNumberOfVisibleElements(this.cityField) > 0
-      && I.grabNumberOfVisibleElements(this.postcodeField) > 0
-    ) {
+    if (I.grabNumberOfVisibleElements(this.firstNameField) > 0) {
       I.fillField(this.firstNameField, customer.firstName);
       I.fillField(this.lastNameField, customer.lastName);
       I.fillField(this.addressField, customer.address);
