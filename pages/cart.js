@@ -24,27 +24,15 @@ module.exports = {
   successfulPurchaseText: { xpath: '//*[@id="content"]/h1/text()' },
 
   fillCheckoutForm(customer) {
-    if (I.grabNumberOfVisibleElements(this.firstNameField) > 0) {
+    if (await I.grabNumberOfVisibleElements(this.firstNameField) > 0) {
       I.fillField(this.firstNameField, customer.firstName);
       I.fillField(this.lastNameField, customer.lastName);
       I.fillField(this.addressField, customer.address);
       I.fillField(this.cityField, customer.city);
       I.fillField(this.postcodeField, customer.postcode);
-    }
-
-    if (I.seeElement(countryDropdown)) {
       I.click(this.countryDropdown);
-    }
-
-    if (I.seeElement(country)) {
       I.click(this.country);
-    }
-
-    if (I.seeElement(region_Dropdown)) {
       I.click(this.region_Dropdown);
-    }
-
-    if (I.seeElement(region_state)) {
       I.click(this.region_state);
     }
 
