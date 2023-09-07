@@ -26,8 +26,8 @@ module.exports = function () {
       const numOfElements = await this.grabNumberOfVisibleElements('//li[@class="product"]');
 
       if (numOfElements > 0) {
-        for (let i = 1; i < numOfElements * 2; i += 2) {
-            this.click('(//button[@class="link"])[' + i + ']');
+        for (let i = 1; i < numOfElements * 2; i++) {
+            this.click('(//i[@class="linearicons-trash"][last()])');
         }
       }
     },
