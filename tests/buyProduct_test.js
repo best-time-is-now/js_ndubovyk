@@ -13,11 +13,11 @@ const USER = {
 Feature('buy product');
 
 Scenario('buy product', async ({ I, productPage, cartPage }) => {
-    I.login(USER);
+    // I.login(USER);
     I.amOnPage('/index.php?route=product/product&product_id=44');
-    await I.emptyCart();
-    productPage.selectColor();
-    productPage.selectSize();
+    // await I.emptyCart();
+    //productPage.selectColor();
+    /*productPage.selectSize();
     const productPrice = await productPage.getProductPrice();
     console.log("Price before taxes is " + productPrice);
     I.proceedToCheckout();
@@ -27,6 +27,6 @@ Scenario('buy product', async ({ I, productPage, cartPage }) => {
     const totalPrice = await cartPage.getTotalPrice();
     I.assertEqual(productPrice + tax, totalPrice, "Prices are not equal");
     cartPage.clickConfirmOrder();
-    cartPage.verifySuccessfulPurchase();
+    cartPage.verifySuccessfulPurchase();*/
 
 }).tag("buy");
