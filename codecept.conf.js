@@ -31,6 +31,7 @@ exports.config = {
       require: './helpers/priceconverter_helper.js',
     },
   },
+
   include: {
     I: './steps_file.js',
     basePage: './pages/base.js',

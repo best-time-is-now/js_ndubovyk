@@ -1,3 +1,4 @@
+
 emailField = { css: "#input-email" };
 passwordField = { css: "#input-password" };
 signInButton = { xpath: '//a[text()="Sign In"]' };
@@ -5,11 +6,15 @@ loginButton = { xpath: '//input[@type="submit"]' };
 myOrdersText = { xpath: '//h2[text()="My Orders"]' };
 addToCartButton = { xpath: '//button[@type="button"][@id="button-cart"]' };
 cartIcon = { xpath: '//i[@class="linearicons-cart"]' };
-checkoutButton = { xpath: '//a[@class="btn-primary btn-r"]' };
-
+checkoutButton = { xpath: '//a[@class="btn-primary btn-r"][1]' };
+notAvailableProduct = { xpath: '//*[@id="content"]/form/div/table/tbody/tr[1]/td[2]/span' };
 
 module.exports = function () {
   return actor({
+
+    async checkElementExists(element) {
+      return Boolean(await this.grabNumberOfVisibleElements(element));
+    },
 
     login(user) {
       this.amOnPage('http://opencart.qatestlab.net/');
@@ -37,8 +42,18 @@ module.exports = function () {
       this.click(cartIcon);
     },
 
-    clickCheckoutButton() {
-      this.click(checkoutButton);
+    async clickCheckoutButton() {
+      try {
+        this.click(checkoutButton);
+
+        const productIsVisible = await this.checkElementExists(this.notAvailableProduct);
+
+        if (!productIsVisible) {
+          throw new Error('Sorry, the product is not available');
+        }
+      } catch (e) {
+        console.log('Please, choose the available product');
+      }
     },
   });
 }
