@@ -10,12 +10,12 @@ module.exports = {
   async checkElementExists(element) {
     return Boolean(await I.grabNumberOfVisibleElements(element));
   },
-  
+
   async selectColor() {
     if (await this.checkElementExists(this.colorDropDown)) {
       I.click(this.colorDropDown);
       I.click(this.colorOption);
-    } 
+    }
   },
 
   async selectSize() {

@@ -1,7 +1,9 @@
 const FileReader = require('../helpers/fileReader.js');
 
 const PATH = './productIds.txt';
-const productIds = FileReader.readFile(PATH);
+const fileAsString = FileReader.readFile(PATH);
+let productIds = FileReader.convertStringToArray(fileAsString);
+productIds = FileReader.addRandomElement2Array(productIds);
 
 const USER = {
     email: "114@test.com",
@@ -15,16 +17,13 @@ const USER = {
     region_state: "New York",
 }
 
-let productLinks = [44, 48, 68, 45, 32];
-
 Feature('buy product');
 
 Before(({ I }) => {
     I.login(USER);
 });
 
-Data(productLinks).Scenario('buy product', async ({ I, productPage, cartPage, current }) => {
-    console.log(FileReader.convertStringToArray(productIds));
+Data(productIds).Scenario('buy product', async ({ I, productPage, cartPage, current }) => {
     I.amOnPage('/index.php?route=product/product&product_id=' + current);
     console.log(await productPage.selectColor());
     console.log(await productPage.selectSize());
