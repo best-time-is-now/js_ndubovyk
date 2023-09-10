@@ -12,10 +12,6 @@ notAvailableProduct = { xpath: '//*[@id="content"]/form/div/table/tbody/tr[1]/td
 module.exports = function () {
   return actor({
 
-    async checkElementExists(element) {
-      return Boolean(await this.grabNumberOfVisibleElements(element));
-    },
-
     login(user) {
       this.amOnPage('http://opencart.qatestlab.net/');
 

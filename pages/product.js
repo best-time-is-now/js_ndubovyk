@@ -7,19 +7,15 @@ module.exports = {
   sizeOption: { xpath: '//label[text()="Size"]/following-sibling::div/ul/li[2]' },
   productPriceText: { xpath: '//*[@id="content"]/div[1]/div[2]/div/div[1]/span[1]' },
 
-  async checkElementExists(element) {
-    return Boolean(await I.grabNumberOfVisibleElements(element));
-  },
-
   async selectColor() {
-    if (await this.checkElementExists(this.colorDropDown)) {
+    if (await I.checkElementExists(this.colorDropDown)) {
       I.click(this.colorDropDown);
       I.click(this.colorOption);
     }
   },
 
   async selectSize() {
-    if (await this.checkElementExists(this.sizeDropDown)) {
+    if (await I.checkElementExists(this.sizeDropDown)) {
       I.click(this.sizeDropDown);
       I.click(this.sizeOption);
     }
