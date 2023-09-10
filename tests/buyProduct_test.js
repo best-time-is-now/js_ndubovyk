@@ -3,7 +3,7 @@ const FileReader = require('../helpers/fileReader.js');
 const PATH = './productIds.txt';
 const fileAsString = FileReader.readFile(PATH);
 let productIds = FileReader.convertStringToArray(fileAsString);
-productIds = FileReader.addRandomElement2Array(productIds);
+//productIds = FileReader.addRandomElement2Array(productIds);
 
 const USER = {
     email: "114@test.com",
@@ -24,13 +24,14 @@ Before(({ I }) => {
 });
 
 Data(productIds).Scenario('buy product', async ({ I, productPage, cartPage, current }) => {
-    await I.emptyCart();
+    
     I.amOnPage('/index.php?route=product/product&product_id=' + current);
+    await I.emptyCart();
     await productPage.selectColor();
     await productPage.selectSize();
     const productPrice = await productPage.getProductPrice();
     console.log("Price before taxes is " + productPrice);
-    I.proceedToCheckout();
+    productPage.proceedToCheckout();
     const isAccessible = await I.clickCheckoutButton();
     if (isAccessible) {
         await cartPage.fillCheckoutForm(USER);

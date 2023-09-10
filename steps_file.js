@@ -4,7 +4,6 @@ const passwordField = { css: "#input-password" };
 const signInButton = { xpath: '//a[text()="Sign In"]' };
 const loginButton = { xpath: '//input[@type="submit"]' };
 const myOrdersText = { xpath: '//h2[text()="My Orders"]' };
-const addToCartButton = { xpath: '//button[@type="button"][@id="button-cart"]' };
 const cartIcon = { xpath: '//i[@class="linearicons-cart"]' };
 const checkoutButton = { xpath: '//a[@class="btn-primary btn-r"][1]' };
 const clearCartButton = { xpath: '(//i[@class="linearicons-trash"])[last()]' };
@@ -34,19 +33,14 @@ module.exports = function () {
       }
     },
 
-    proceedToCheckout() {
-      this.click(addToCartButton);
-      this.click(cartIcon);
-    },
-
     async clickCheckoutButton() {
       try {
-        const productIsVisible = await this.checkElementExists(notAvailableProduct);
+        this.click(checkoutButton);
+        const notAvailabilityIndicatorIsVisible = await this.checkElementExists(notAvailableProduct);
 
-        if (!productIsVisible) {
+        if (notAvailabilityIndicatorIsVisible) {
           throw new Error('Sorry, the product is not available');
         } else {
-          this.click(checkoutButton);
           return true;
         }
       } catch (e) {
