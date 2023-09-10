@@ -24,8 +24,7 @@ module.exports = {
   successfulPurchaseText: { xpath: '//*[@id="content"]/h1/text()' },
 
   async fillCheckoutForm(customer) {
-    const number = await I.grabNumberOfVisibleElements(this.firstNameField);
-    if (number > 0) {
+    if (await I.checkElementExists(this.firstNameField)) {
       I.fillField(this.firstNameField, customer.firstName);
       I.fillField(this.lastNameField, customer.lastName);
       I.fillField(this.addressField, customer.address);

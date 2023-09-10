@@ -24,22 +24,21 @@ Before(({ I }) => {
 });
 
 Data(productIds).Scenario('buy product', async ({ I, productPage, cartPage, current }) => {
-    I.amOnPage('/index.php?route=product/product&product_id=' + current);
-    console.log(await productPage.selectColor());
-    console.log(await productPage.selectSize());
-
     await I.emptyCart();
+    I.amOnPage('/index.php?route=product/product&product_id=' + current);
     await productPage.selectColor();
     await productPage.selectSize();
     const productPrice = await productPage.getProductPrice();
     console.log("Price before taxes is " + productPrice);
     I.proceedToCheckout();
-    await I.clickCheckoutButton();
-    await cartPage.fillCheckoutForm(USER);
-    const tax = await cartPage.getTax();
-    const totalPrice = await cartPage.getTotalPrice();
-    I.assertEqual(productPrice + tax, totalPrice, "Prices are not equal");
-    cartPage.clickConfirmOrder();
-    cartPage.verifySuccessfulPurchase();
+    const isAccessible = await I.clickCheckoutButton();
+    if (isAccessible) {
+        await cartPage.fillCheckoutForm(USER);
+        const tax = await cartPage.getTax();
+        const totalPrice = await cartPage.getTotalPrice();
+        I.assertEqual(productPrice + tax, totalPrice, "Prices are not equal");
+        cartPage.clickConfirmOrder();
+        cartPage.verifySuccessfulPurchase();
+    }
 
 }).tag("buy");

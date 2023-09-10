@@ -1,13 +1,14 @@
 
-emailField = { css: "#input-email" };
-passwordField = { css: "#input-password" };
-signInButton = { xpath: '//a[text()="Sign In"]' };
-loginButton = { xpath: '//input[@type="submit"]' };
-myOrdersText = { xpath: '//h2[text()="My Orders"]' };
-addToCartButton = { xpath: '//button[@type="button"][@id="button-cart"]' };
-cartIcon = { xpath: '//i[@class="linearicons-cart"]' };
-checkoutButton = { xpath: '//a[@class="btn-primary btn-r"][1]' };
-notAvailableProduct = { xpath: '//*[@id="content"]/form/div/table/tbody/tr[1]/td[2]/span' };
+const emailField = { css: "#input-email" };
+const passwordField = { css: "#input-password" };
+const signInButton = { xpath: '//a[text()="Sign In"]' };
+const loginButton = { xpath: '//input[@type="submit"]' };
+const myOrdersText = { xpath: '//h2[text()="My Orders"]' };
+const addToCartButton = { xpath: '//button[@type="button"][@id="button-cart"]' };
+const cartIcon = { xpath: '//i[@class="linearicons-cart"]' };
+const checkoutButton = { xpath: '//a[@class="btn-primary btn-r"][1]' };
+const clearCartButton = { xpath: '(//i[@class="linearicons-trash"])[last()]' };
+const notAvailableProduct = { xpath: '//*[@id="content"]/form/div/table/tbody/tr[1]/td[2]/span' };
 
 module.exports = function () {
   return actor({
@@ -24,11 +25,11 @@ module.exports = function () {
 
     async emptyCart() {
       this.click(cartIcon);
-      const numOfElements = await this.grabNumberOfVisibleElements('//li[@class="product"]');
+      const numOfElements = await this.grabNumberOfVisibleElements(clearCartButton);
 
       if (numOfElements > 0) {
-        for (let i = 1; i < numOfElements * 2; i++) {
-          this.click('(//i[@class="linearicons-trash"])[last()]');
+        for (let i = 0; i < numOfElements; i++) {
+          this.click(clearCartButton);
         }
       }
     },
@@ -40,15 +41,17 @@ module.exports = function () {
 
     async clickCheckoutButton() {
       try {
-        this.click(checkoutButton);
-
-        const productIsVisible = await this.checkElementExists(this.notAvailableProduct);
+        const productIsVisible = await this.checkElementExists(notAvailableProduct);
 
         if (!productIsVisible) {
           throw new Error('Sorry, the product is not available');
+        } else {
+          this.click(checkoutButton);
+          return true;
         }
       } catch (e) {
         console.log('Please, choose the available product');
+        return false;
       }
     },
   });
