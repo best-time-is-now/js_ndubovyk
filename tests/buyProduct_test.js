@@ -23,8 +23,8 @@ Before(({ I }) => {
 });
 
 Data([FileReader.getRandomElement2Array(productIds)]).Scenario('buy product', async ({ I, productPage, cartPage, current }) => {
-    I.amOnPage('/index.php?route=product/product&product_id=' + current);
     await I.emptyCart();
+    I.amOnPage('/index.php?route=product/product&product_id=' + current);
     await productPage.selectColor();
     await productPage.selectSize();
     const productPrice = await productPage.getProductPrice();
@@ -41,4 +41,3 @@ Data([FileReader.getRandomElement2Array(productIds)]).Scenario('buy product', as
     }
 
 }).tag("buy");
-
