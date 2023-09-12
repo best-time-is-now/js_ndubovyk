@@ -1,4 +1,5 @@
 const { I } = inject();
+const checkElementExists = async function (element) { await tryTo(() => I.seeElement(element)); }
 
 module.exports = {
   colorDropDown: { xpath: '//label[text()="Color"]/following-sibling::div/a[1]' },
@@ -12,14 +13,14 @@ module.exports = {
   notAvailableProduct: { xpath: '//*[@id="content"]/form/div/table/tbody/tr[1]/td[2]/span' },
 
   async selectColor() {
-    if (await I.checkElementExists(this.colorDropDown)) {
+    if (await checkElementExists(this.colorDropDown)) {
       I.click(this.colorDropDown);
       I.click(this.colorOption);
     }
   },
 
   async selectSize() {
-    if (await I.checkElementExists(this.sizeDropDown)) {
+    if (await checkElementExists(this.sizeDropDown)) {
       I.click(this.sizeDropDown);
       I.click(this.sizeOption);
     }
@@ -31,11 +32,11 @@ module.exports = {
     let colorPrice = 0;
     let sizePrice = 0;
 
-    if (await I.tryElementExist(this.colorOption)) {
+    if (await checkElementExists(this.colorOption)) {
       const draftColorPrice = await I.grabTextFrom(this.colorOption);
       colorPrice = await I.parsePrice(draftColorPrice);
     }
-    if (await I.tryElementExist(this.sizeOption)) {
+    if (await checkElementExists(this.sizeOption)) {
       const draftSizePrice = await I.grabTextFrom(this.sizeOption);
       sizePrice = await I.parsePrice(draftSizePrice);
     }

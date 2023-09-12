@@ -6,7 +6,12 @@ class CheckElementExists extends Helper {
   }
 
   async tryElementExist(element) {
-    return await tryTo(() => this.helpers['Playwright'].see(element));
+    try {
+      await this.helpers['Playwright'].seeElement(element);
+      return true;
+    } catch {
+      return false;
+    }   
   }
 }
 
