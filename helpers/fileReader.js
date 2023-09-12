@@ -9,7 +9,7 @@ module.exports = {
         return string.split("\r\n").map(Number);
     },
 
-    getRandomElement2Array(array) {
+    getRandomElementFromArray(array) {
         const randomIndex = Math.floor(Math.random() * array.length);
         return array[randomIndex];
     }
