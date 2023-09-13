@@ -29,8 +29,8 @@ Data([FileReader.getRandomElementFromArray(productIds)]).Scenario('buy product',
     await productPage.selectSize();
     const productPrice = await productPage.getProductPrice();
     console.log("Price before taxes is " + productPrice);
-    await productPage.proceedToCheckout();
-    await productPage.clickCheckoutButton();
+    productPage.proceedToCheckout();
+    productPage.clickCheckoutButton();
     
     const isNotAccessible = await productPage.checkProductIsNotAvailable();
     if (isNotAccessible) {

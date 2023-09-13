@@ -43,5 +43,6 @@ exports.config = {
     productPage: "./pages/product.js",
     cartPage: "./pages/cart.js",
   },
+
   name: 'js_ndubovyk'
 }

@@ -24,7 +24,7 @@ module.exports = {
   successfulPurchaseText: { xpath: '//*[@id="content"]/h1/text()' },
 
   async fillCheckoutForm(customer) {
-    if (await I.checkElementExists(this.firstNameField)) {
+    if (await I.tryElementExist(this.firstNameField)) {
       I.fillField(this.firstNameField, customer.firstName);
       I.fillField(this.lastNameField, customer.lastName);
       I.fillField(this.addressField, customer.address);
