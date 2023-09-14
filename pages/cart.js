@@ -57,7 +57,7 @@ module.exports = {
     const shippingRate = await I.grabTextFrom(this.flatShippingRate);
     const shippingRateParse = await I.parsePrice(shippingRate);
 
-    return shippingRateParse + ecoParse + vatParse;
+    return shippingRateParse;
   },
 
   async getTotalPrice() {
