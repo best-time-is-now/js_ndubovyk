@@ -19,7 +19,7 @@ module.exports = {
   flatShippingRate: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[2]/td[2]' },
   ecoTax: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[3]/td[2]' },
   vat: { xpath: '//div[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[4]/td[2]' },
-  total: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[5]/td[2]' },
+  total: { xpath: '//strong[text()="Total:"]/parent::td/following-sibling::td' },
   confirmOrderButton: { xpath: '//*[@id="button-confirm"]' },
   successfulPurchaseText: { xpath: '//*[@id="content"]/h1/text()' },
 
