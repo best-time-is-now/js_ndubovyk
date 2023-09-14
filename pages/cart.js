@@ -17,8 +17,6 @@ module.exports = {
   step5ConditionsAccepting: { xpath: '//input[@id="agree1"]' },
   continueStep5Button: { xpath: '(//input[@id="button-payment-method"])[1]' },
   flatShippingRate: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[2]/td[2]' },
-  ecoTax: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[3]/td[2]' },
-  vat: { xpath: '//div[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[4]/td[2]' },
   total: { xpath: '//strong[text()="Total:"]/parent::td/following-sibling::td' },
   confirmOrderButton: { xpath: '//*[@id="button-confirm"]' },
   successfulPurchaseText: { xpath: '//*[@id="content"]/h1' },
@@ -56,7 +54,6 @@ module.exports = {
   async getTax() {
     const shippingRate = await I.grabTextFrom(this.flatShippingRate);
     const shippingRateParse = await I.parsePrice(shippingRate);
-
     return shippingRateParse;
   },
 
