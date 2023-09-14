@@ -51,13 +51,13 @@ module.exports = {
     I.click(this.checkoutButton);
   },
 
-  throwIfNotAvailable(isNotAvailable) {
-    if (isNotAvailable) {
+  throwIfNotAvailable(isAvailable) {
+    if (!isAvailable) {
       throw new Error('Sorry, the product is not available');
     }
   },
 
-  async checkProductIsNotAvailable() {
-    return await I.tryElementExist(this.notAvailableProduct);
+  async checkProductIsAvailable() {
+    return (!await I.tryElementExist(this.notAvailableProduct));
   },
 }

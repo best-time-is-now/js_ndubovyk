@@ -32,15 +32,15 @@ Data([FileReader.getRandomElementFromArray(productIds)]).Scenario('buy product',
     productPage.proceedToCheckout();
     productPage.clickCheckoutButton();
     
-    const isNotAccessible = await productPage.checkProductIsNotAvailable();
-    if (isNotAccessible) {
-        productPage.throwIfNotAvailable(isNotAccessible);
-    } else {
+    const isAccessible = await productPage.checkProductIsAvailable();
+    if (isAccessible) {
         await cartPage.fillCheckoutForm(USER);
         const tax = await cartPage.getTax();
         const totalPrice = await cartPage.getTotalPrice();
         I.assertEqual(productPrice + tax, totalPrice, "Prices are not equal");
         cartPage.clickConfirmOrder();
-        cartPage.verifySuccessfulPurchase();
+        cartPage.verifySuccessfulPurchase();   
+    } else {
+        productPage.throwIfNotAvailable(isAccessible);
     }
 }).tag("buy");
