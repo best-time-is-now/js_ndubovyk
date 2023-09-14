@@ -21,7 +21,7 @@ module.exports = {
   vat: { xpath: '//div[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[4]/td[2]' },
   total: { xpath: '//strong[text()="Total:"]/parent::td/following-sibling::td' },
   confirmOrderButton: { xpath: '//*[@id="button-confirm"]' },
-  successfulPurchaseText: { xpath: '//*[@id="content"]/h1/text()' },
+  successfulPurchaseText: { xpath: '//*[@id="content"]/h1' },
 
   async fillCheckoutForm(customer) {
     if (await I.tryElementExist(this.firstNameField)) {
