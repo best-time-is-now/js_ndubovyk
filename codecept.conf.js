@@ -30,7 +30,12 @@ exports.config = {
     PriceConverter: {
       require: './helpers/priceconverter_helper.js',
     },
+
+    CheckElementExists: {
+      require: './helpers/checkElementExists_helper.js',
+    },
   },
+  
   include: {
     I: './steps_file.js',
     basePage: './pages/base.js',
@@ -38,5 +43,6 @@ exports.config = {
     productPage: "./pages/product.js",
     cartPage: "./pages/cart.js",
   },
+
   name: 'js_ndubovyk'
 }

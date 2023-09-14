@@ -1,12 +1,11 @@
-emailField = { css: "#input-email" };
-passwordField = { css: "#input-password" };
-signInButton = { xpath: '//a[text()="Sign In"]' };
-loginButton = { xpath: '//input[@type="submit"]' };
-myOrdersText = { xpath: '//h2[text()="My Orders"]' };
-addToCartButton = { xpath: '//button[@type="button"][@id="button-cart"]' };
-cartIcon = { xpath: '//i[@class="linearicons-cart"]' };
-checkoutButton = { xpath: '//a[@class="btn-primary btn-r"]' };
 
+const emailField = { css: "#input-email" };
+const passwordField = { css: "#input-password" };
+const signInButton = { xpath: '//a[text()="Sign In"]' };
+const loginButton = { xpath: '//input[@type="submit"]' };
+const myOrdersText = { xpath: '//h2[text()="My Orders"]' };
+const cartIcon = { xpath: '//i[@class="linearicons-cart"]' };
+const clearCartButton = { xpath: '(//i[@class="linearicons-trash"])[last()]' };
 
 module.exports = function () {
   return actor({
@@ -23,22 +22,13 @@ module.exports = function () {
 
     async emptyCart() {
       this.click(cartIcon);
-      const numOfElements = await this.grabNumberOfVisibleElements('//li[@class="product"]');
+      const numOfElements = await this.grabNumberOfVisibleElements(clearCartButton);
 
       if (numOfElements > 0) {
-        for (let i = 1; i < numOfElements * 2; i++) {
-          this.click('(//i[@class="linearicons-trash"])[last()]');
+        for (let i = 0; i < numOfElements; i++) {
+          this.click(clearCartButton);
         }
       }
-    },
-
-    proceedToCheckout() {
-      this.click(addToCartButton);
-      this.click(cartIcon);
-    },
-
-    clickCheckoutButton() {
-      this.click(checkoutButton);
     },
   });
 }

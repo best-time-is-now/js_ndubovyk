@@ -1,3 +1,9 @@
+const FileReader = require('../helpers/fileReader.js');
+
+const PATH = './productIds.txt';
+const fileAsString = FileReader.readFile(PATH);
+let productIds = FileReader.convertStringToArray(fileAsString);
+
 const USER = {
     email: "114@test.com",
     password: "12345",
@@ -12,21 +18,29 @@ const USER = {
 
 Feature('buy product');
 
-Scenario('buy product', async ({ I, productPage, cartPage }) => {
+Before(async ({ I }) => {
     I.login(USER);
-    I.amOnPage('/index.php?route=product/product&product_id=44');
     await I.emptyCart();
-    productPage.selectColor();
-    productPage.selectSize();
+});
+
+Data([FileReader.getRandomElementFromArray(productIds)]).Scenario('buy product', async ({ I, productPage, cartPage, current }) => {
+    I.amOnPage('/index.php?route=product/product&product_id=' + current);
+    await productPage.selectColor();
+    await productPage.selectSize();
     const productPrice = await productPage.getProductPrice();
     console.log("Price before taxes is " + productPrice);
-    I.proceedToCheckout();
-    I.clickCheckoutButton();
-    await cartPage.fillCheckoutForm(USER);
-    const tax = await cartPage.getTax();
-    const totalPrice = await cartPage.getTotalPrice();
-    I.assertEqual(productPrice + tax, totalPrice, "Prices are not equal");
-    cartPage.clickConfirmOrder();
-    cartPage.verifySuccessfulPurchase();
-
+    productPage.proceedToCheckout();
+    productPage.clickCheckoutButton();
+    
+    const isAccessible = await productPage.checkProductIsAvailable();
+    if (isAccessible) {
+        await cartPage.fillCheckoutForm(USER);
+        const tax = await cartPage.getTax();
+        const totalPrice = await cartPage.getTotalPrice();
+        I.assertEqual(productPrice + tax, totalPrice, "Prices are not equal");
+        cartPage.clickConfirmOrder();
+        cartPage.verifySuccessfulPurchase();   
+    } else {
+        productPage.throwIfNotAvailable(isAccessible);
+    }
 }).tag("buy");
