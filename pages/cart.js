@@ -57,11 +57,6 @@ module.exports = {
     const shippingRate = await I.grabTextFrom(this.flatShippingRate);
     const shippingRateParse = await I.parsePrice(shippingRate);
 
-    const eco = await I.grabTextFrom(this.ecoTax);
-    const ecoParse = await I.parsePrice(eco);
-
-    const vatTax = await I.grabTextFrom(this.vat);
-    const vatParse = await I.parsePrice(vatTax);
     return shippingRateParse + ecoParse + vatParse;
   },
 
